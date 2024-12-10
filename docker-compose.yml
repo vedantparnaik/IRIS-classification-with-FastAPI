@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  fastapi:
+    build:
+      context: ./fastapi-app # Replace with the directory of your FastAPI app
+    ports:
+      - "8000:8000"
+    networks:
+      - iris-network
+
+  streamlit:
+    build:
+      context: ./streamlit-app # Replace with the directory of your Streamlit app
+    ports:
+      - "8501:8501"
+    networks:
+      - iris-network
+    depends_on:
+      - fastapi
+
+networks:
+  iris-network:
+    driver: bridge
